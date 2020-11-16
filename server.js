@@ -19,6 +19,7 @@ client.connect().then(()=>{
 app.get("/get_anime", function(request, response){
 	let page = request.query.page;
 	let number = request.query.anime_number;
+	//тут получим инфу из бд по номеру страницы и номеру аниме
 	client.query('select get_anime_info($1,$2);',[page, number], function(err, res){
 		if(err) {
 			return console.error('error running query', err);
