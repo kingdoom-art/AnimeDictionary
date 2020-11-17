@@ -34,8 +34,10 @@ public class PageAnime extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_page_anime);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //инициализируем элементы, в которых будем отображать инфу об аниме
         textView = (TextView) findViewById(R.id.animeInfo);
         imageView = (ImageView) findViewById(R.id.animeImage);
+        //отобразим стартовую инфу
         getAnime();
         setSupportActionBar(toolbar);
         CollapsingToolbarLayout toolBarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
@@ -68,12 +70,18 @@ public class PageAnime extends AppCompatActivity {
     }
 
     private void getAnime(){
+        //получим инфу из бд о следующем аниме на текуей странице, если такого нет
+        //в бд сработает переход на новую страницу
         MainActivity.retrofit.create(IAPI.class).getInfoAnime(page, anime_number).enqueue(new Callback<AnimePage>() {
             @Override
             public void onResponse(Call<AnimePage> call, Response<AnimePage> response) {
+                //получаем номер текущего аниме на странице
                 anime_number = response.body().animeNumber;
+                //получаем текущую страницу
                 page = response.body().page;
+                //сразу грузим картинку
                 (new DownloadImageTask()).execute(response.body().linkImage);
+                //выводим инфу
                 textView.setText(response.body().infoAnime);
             }
 
@@ -85,7 +93,13 @@ public class PageAnime extends AppCompatActivity {
     }
 
     public void nextPage(View view){
+        //получаем следующее аниме
         anime_number++;
+        getAnime();
+    }
+
+    public void previousPage(View view){
+        anime_number--;
         getAnime();
     }
 }

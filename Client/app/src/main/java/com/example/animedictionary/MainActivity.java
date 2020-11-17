@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         retrofit.create(IAPI.class).testConnect().enqueue(new Callback<TestConnection>() {
             @Override
             public void onResponse(Call<TestConnection> call, Response<TestConnection> response) {
+                //если коннект прошел удачно переводим на страницу с аниме
                 Intent intent = new Intent(MainActivity.this, PageAnime.class);
                 startActivity(intent);
             }
