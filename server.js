@@ -22,8 +22,10 @@ app.get("/get_anime", function(request, response){
 	//тут получим инфу из бд по номеру страницы и номеру аниме
 	client.query('select get_anime_info($1,$2);',[page, number], function(err, res){
 		if(err) {
+			response.send(JSON.stringify({"id_inf":0,"link_anime":"null","link_image":"","info_anime":"","anime_number":0,"page":"1"}));
 			return console.error('error running query', err);
 		}
+		
 		response.send(res.rows[0].get_anime_info);
 	})
 });

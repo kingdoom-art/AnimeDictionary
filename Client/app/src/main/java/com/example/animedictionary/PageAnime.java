@@ -80,9 +80,11 @@ public class PageAnime extends AppCompatActivity {
                 //получаем текущую страницу
                 page = response.body().page;
                 //сразу грузим картинку
-                (new DownloadImageTask()).execute(response.body().linkImage);
-                //выводим инфу
-                textView.setText(response.body().infoAnime);
+                if (!response.body().linkImage.equals("error")){
+                    (new DownloadImageTask()).execute(response.body().linkImage);
+                    //выводим инфу
+                    textView.setText(response.body().infoAnime);
+                }
             }
 
             @Override
