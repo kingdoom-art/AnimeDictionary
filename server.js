@@ -36,6 +36,7 @@ app.get("/", function(request, response){
 //метод ошибок от парсера(если не удалось коннектнуться к базе)
 app.get("/error", function(request, response){
     let  message = request.query.error;
+	response.send("add log");
 	console.log(message);
 });
 //сам запуск парсера /load?page=
