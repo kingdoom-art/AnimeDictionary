@@ -5,11 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.example.animedictionary.connect.IAPI;
+import com.example.animedictionary.databinding.ActivityMainBinding;
 import com.example.animedictionary.tools.rx.Transformer;
 
 import io.reactivex.rxjava3.disposables.Disposable;
@@ -21,9 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     //собственна сама ссылочка к нашуму серверу
     public static final String url = "http://192.168.0.110:25525";
-    public TextView textView;
-    public ProgressBar progressBar;
-    public Button reLoad;
+    private ActivityMainBinding binding;
     //адаптер интерфейсов джава к http вызовам
     public static Retrofit retrofit;
     private Disposable testConnectRequest;
@@ -31,11 +27,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-        textView = (TextView) findViewById(R.id.textView);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        reLoad = (Button) findViewById(R.id.reLoad);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        binding.reLoad.setOnClickListener(this::reLoad);
 
         retrofit = new Retrofit.Builder()
                 .baseUrl(url)
@@ -61,18 +56,17 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                 }, error -> {
                     //ошибочка, например, если сервер не доступен
-                    textView.setText(R.string.error);
+                    binding.textView.setText(R.string.error);
                     //покажем кнопку перезагрузки
-                    reLoad.setVisibility(View.VISIBLE);
+                    binding.reLoad.setVisibility(View.VISIBLE);
                 })
             ;
         }
     }
-/*
-    public void reLoad() {
-        reLoad.setVisibility(View.INVISIBLE);
-        textView.setText(R.string.load);
+
+    public void reLoad(View view) {
+        binding.reLoad.setVisibility(View.INVISIBLE);
+        binding.textView.setText(R.string.load);
         testConnectServer();
     }
-*/
 }
