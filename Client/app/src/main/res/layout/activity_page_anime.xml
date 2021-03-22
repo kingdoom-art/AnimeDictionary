@@ -61,7 +61,7 @@
                     android:id="@+id/button8"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:text="дальше"
+                    android:text="@string/go_forward"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -70,7 +70,7 @@
                     android:id="@+id/button7"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:text="назад"
+                    android:text="@string/go_back"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

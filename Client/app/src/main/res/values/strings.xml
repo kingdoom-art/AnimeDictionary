@@ -2,6 +2,9 @@
     <string name="app_name">AnimeDictionary</string>
     <string name="load">Идёт загрузка</string>
     <string name="error">Ошибка сети</string>
+    <string name="go_forward">дальше</string>
+    <string name="go_back">назад</string>
+    <string name="retry">Повторить</string>
     <string name="title_activity_page_anime">Здесь могла быть ваша реклама</string>
     <string name="action_settings">Settings</string>
 </resources>

@@ -27,11 +27,11 @@ public class App extends Application {
 
     private void initTools() {
         animeService = new Retrofit.Builder()
-                .baseUrl("http://192.168.0.110:25525")
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-                .build()
-                .create(AnimeService.class)
+            .baseUrl("http://192.168.0.110:25525")
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+            .build()
+            .create(AnimeService.class)
         ;
     }
 
