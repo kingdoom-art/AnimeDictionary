@@ -9,19 +9,14 @@ import android.view.View;
 
 import com.example.animedictionary.views.activities.animepage.AnimePageActivity;
 import com.example.animedictionary.R;
-import com.example.animedictionary.services.anime.AnimeService;
 import com.example.animedictionary.databinding.ActivityMainBinding;
-import com.example.animedictionary.tools.rx.Transformer;
-
-import io.reactivex.rxjava3.disposables.Disposable;
 
 public class MainActivity extends AppCompatActivity {
-    private AnimeService animeService;
+    private MainActivityPresenter presenter;
     private ActivityMainBinding binding;
-    private Disposable testConnectRequest;
 
-    public void init(@NonNull AnimeService animeService) {
-        this.animeService = animeService;
+    public void init(@NonNull MainActivityPresenter presenter) {
+        this.presenter = presenter;
     }
 
     @Override
@@ -29,44 +24,29 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setupView();
 
-        testConnectServer();
+        presenter.testConnectServer();
     }
 
     private void setupView() {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        binding.reLoad.setOnClickListener(view -> testConnectServer());
+        binding.reLoad.setOnClickListener(view -> presenter.testConnectServer());
     }
 
-    private boolean isInLoading() {
-        return testConnectRequest != null && !testConnectRequest.isDisposed();
-    }
-
-    private void testConnectServer() {
-        if (!isInLoading()) {
-            //чудо запустится ассинхранно, а пока оно грудится, лупанем индикатор загрузки
-            showLoading();
-            testConnectRequest = animeService.testConnect()
-                .compose(Transformer.actionBasicScheduler())
-                .doFinally(() -> testConnectRequest = null)
-                .subscribe(testConnection -> {
-                    //если коннект прошел удачно переводим на страницу с аниме
-                    Intent intent = new Intent(MainActivity.this, AnimePageActivity.class);
-                    startActivity(intent);
-                }, error -> showLoadingError())
-            ;
-        }
-    }
-
-    private void showLoading() {
+    protected void showLoading() {
         binding.reLoad.setVisibility(View.INVISIBLE);
         binding.textView.setText(R.string.load);
     }
 
-    private void showLoadingError() {
+    protected void showLoadingError() {
         //ошибочка, например, если сервер не доступен
         binding.textView.setText(R.string.error);
         //покажем кнопку перезагрузки
         binding.reLoad.setVisibility(View.VISIBLE);
+    }
+
+    protected void openAnimePageActivity() {
+        Intent intent = new Intent(MainActivity.this, AnimePageActivity.class);
+        startActivity(intent);
     }
 }

@@ -9,7 +9,9 @@ import androidx.annotation.Nullable;
 
 import com.example.animedictionary.services.anime.AnimeService;
 import com.example.animedictionary.views.activities.animepage.AnimePageActivity;
+import com.example.animedictionary.views.activities.animepage.AnimePageActivityPresenter;
 import com.example.animedictionary.views.activities.main.MainActivity;
+import com.example.animedictionary.views.activities.main.MainActivityPresenter;
 
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
@@ -40,9 +42,11 @@ public class App extends Application {
             @Override
             public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {
                 if (activity instanceof MainActivity) {
-                    ((MainActivity) activity).init(animeService);
+                    MainActivity mainActivity = (MainActivity) activity;
+                    mainActivity.init(new MainActivityPresenter(mainActivity, animeService));
                 } else if (activity instanceof AnimePageActivity) {
-                    ((AnimePageActivity) activity).init(animeService);
+                    AnimePageActivity animePageActivity = (AnimePageActivity) activity;
+                    animePageActivity.init(new AnimePageActivityPresenter(animePageActivity, animeService));
                 }
             }
 
