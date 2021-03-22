@@ -1,10 +1,13 @@
-package com.example.animedictionary.connect;
+package com.example.animedictionary.services.anime;
+
+import com.example.animedictionary.models.anime.AnimePage;
+import com.example.animedictionary.models.anime.TestConnection;
 
 import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
-public interface IAPI {
+public interface AnimeService {
     //собственно сам запрос, который хотим отрпавить
     @GET("/")
     Single<TestConnection> testConnect();
