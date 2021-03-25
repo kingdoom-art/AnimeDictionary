@@ -32,16 +32,16 @@ public class AnimePageActivityPresenter {
             //в бд сработает переход на новую страницу
             loadRequest = animeService.getInfoAnime(page, forward ? animeNumber + 1 : animeNumber - 1)
                 .map(animePage -> { // выполняется в потоке загрузки
-                    Bitmap mIcon11 = null;
+                    Bitmap animeImage = null;
                     if (!animePage.linkImage.equals("error")) {
                         try {
                             InputStream in = new java.net.URL(animePage.linkImage).openStream();
-                            mIcon11 = BitmapFactory.decodeStream(in);
+                            animeImage = BitmapFactory.decodeStream(in);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
-                    return new Pair<>(animePage, mIcon11);
+                    return new Pair<>(animePage, animeImage);
                 })
                 .compose(Transformer.actionBasicScheduler())
                 .doFinally(() -> loadRequest = null)

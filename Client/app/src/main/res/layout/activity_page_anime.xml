@@ -58,7 +58,7 @@
                 android:layout_height="match_parent">
 
                 <Button
-                    android:id="@+id/button8"
+                    android:id="@+id/buttonNext"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:text="@string/go_forward"
@@ -67,7 +67,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
-                    android:id="@+id/button7"
+                    android:id="@+id/buttonPrev"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:text="@string/go_back"

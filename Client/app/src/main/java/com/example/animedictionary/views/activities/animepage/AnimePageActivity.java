@@ -31,8 +31,8 @@ public class AnimePageActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         setSupportActionBar(binding.toolbar);
         binding.toolbarLayout.setTitle(getTitle());
-        binding.button8.setOnClickListener(view -> presenter.getAnime(true));
-        binding.button7.setOnClickListener(view -> presenter.getAnime(false));
+        binding.buttonNext.setOnClickListener(view -> presenter.getAnime(true));
+        binding.buttonPrev.setOnClickListener(view -> presenter.getAnime(false));
     }
 
     protected void showAnime(@NonNull AnimePage animePage, @NonNull Bitmap image) {
